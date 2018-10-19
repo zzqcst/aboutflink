@@ -31,6 +31,7 @@ public class SocketTextStreamWordCount {
         env.execute("Java WordCount from SocketTextStream Example");
     }
 
+
     /**
      * Implements the string tokenizer that splits sentences into words as a user-defined
      * FlatMapFunction. The function takes a line (String) and splits it into
