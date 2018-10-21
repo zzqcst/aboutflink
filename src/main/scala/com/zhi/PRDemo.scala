@@ -33,7 +33,7 @@ object PRDemo {
 
         // build adjacency list from link input
         val adjacencyLists = links
-          .groupBy("sourceId").reduceGroup( new GroupReduceFunction[Link, AdjacencyList] {
+          .groupBy("sourceId").reduceGroup(new GroupReduceFunction[Link, AdjacencyList] {
             override def reduce(values: Iterable[Link], out: Collector[AdjacencyList]): Unit = {
                 var outputId = -1L
                 val outputList = values.asScala map { t => outputId = t.sourceId; t.targetId }
@@ -50,7 +50,7 @@ object PRDemo {
                     (page, adjacent, out: Collector[Page]) =>
                         val targets = adjacent.targetIds
                         val len = targets.length
-                        adjacent.targetIds foreach { t => out.collect(Page(t, page.rank /len )) }
+                        adjacent.targetIds foreach { t => out.collect(Page(t, page.rank / len)) }
                 }
                   // collect ranks and sum them up
                   .groupBy("pageId").aggregate(SUM, "rank")
@@ -69,7 +69,6 @@ object PRDemo {
         }
 
         val result = finalRanks
-
         // emit result
         if (params.has("output")) {
             result.writeAsCsv(params.get("output"), "\n", " ")
@@ -118,7 +117,8 @@ object PRDemo {
             println("Executing PageRank example with default links data set.")
             println("Use --links to specify file input.")
             val edges = PageRankData.EDGES.map { case Array(v1, v2) => Link(v1.asInstanceOf[Long],
-                v2.asInstanceOf[Long])}
+                v2.asInstanceOf[Long])
+            }
             env.fromCollection(edges)
         }
     }
