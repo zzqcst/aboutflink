@@ -109,6 +109,7 @@ object PRDemo {
         }
     }
 
+    
     private def getLinksDataSet(env: ExecutionEnvironment, params: ParameterTool):
     DataSet[Link] = {
         if (params.has("links")) {
